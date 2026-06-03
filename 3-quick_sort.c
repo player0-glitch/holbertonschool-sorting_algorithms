@@ -38,8 +38,9 @@ static int lomuto_parition(int *array, size_t size, int low, int high)
 						{
 							swap_ints(&array[i],
 								  &array[j]);
-							print_array(array,
-								    size);
+							/* print_array(array,
+							     size);
+	*/
 						}
 					i++;
 				}
@@ -48,7 +49,9 @@ static int lomuto_parition(int *array, size_t size, int low, int high)
 	if (i != high)
 		{
 			swap_ints(&array[i], &array[high]);
-			print_array(array, size);
+			/*
+				    print_array(array, size);
+			*/
 		}
 	return (i);
 }
@@ -64,7 +67,7 @@ static void quick_sort_recur(int *array, size_t size, int low, int high)
 	if (low < high)
 		{
 			pivot_idx = lomuto_parition(array, size, low, high);
-
+			print_array(array, size);
 			quick_sort_recur(array, size, low, pivot_idx - 1);
 
 			quick_sort_recur(array, size, pivot_idx + 1, high);
