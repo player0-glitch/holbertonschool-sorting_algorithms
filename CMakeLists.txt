@@ -16,7 +16,7 @@ file (GLOB SHARED_SRC
   "print_array.c"
   "_putschar.c"
   "0-bubble_sort.c"
-  "1-insertion_sort.c"
+  "1-insertion_sort_list.c"
   "2-selection_sort.c"
   "3-quick_sort.c"
 )
