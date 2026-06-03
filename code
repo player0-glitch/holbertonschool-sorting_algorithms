@@ -1,0 +1,181 @@
+#include <stdlib.h>
+
+/**
+ * merge - Merges two sub-arrays of array[]
+ * @array: The source array containing sub-arrays
+ * @temp: Temporary array buffer used for merging
+ * @left: Starting index of left sub-array
+ * @mid: Ending index of left sub-array
+ * @right: Ending index of right sub-array
+ */
+void merge(int *array, int *temp, size_t left, size_t mid, size_t right)
+{
+    size_t i = left;     /* Initial index of first sub-array */
+    size_t j = mid + 1;  /* Initial index of second sub-array */
+    size_t k = left;     /* Initial index of merged sub-array */
+
+    while (i <= mid && j <= right)
+    {
+        if (array[i] <= array[j])
+            temp[k++] = array[i++];
+        else
+            temp[k++] = array[j++];
+    }
+
+    /* Copy remaining elements of left sub-array, if any */
+    while (i <= mid)
+        temp[k++] = array[i++];
+
+    /* Copy remaining elements of right sub-array, if any */
+    while (j <= right)
+        temp[k++] = array[j++];
+
+    /* Copy the sorted elements back into the original array */
+    for (i = left; i <= right; i++)
+        array[i] = temp[i];
+}
+
+/**
+ * merge_sort_recursion - Helper function that divides the array
+ * @array: The array to sort
+ * @temp: Temporary array buffer
+ * @left: Left bound index
+ * @right: Right bound index
+ */
+void merge_sort_recursion(int *array, int *temp, size_t left, size_t right)
+{
+    size_t mid;
+
+    if (left < right)
+    {
+        mid = left + (right - left) / 2;
+
+        /* Sort first and second halves */
+        merge_sort_recursion(array, temp, left, mid);
+        merge_sort_recursion(array, temp, mid + 1, right);
+
+        /* Merge the sorted halves */
+        merge(array, temp, left, mid, right);
+    }
+}
+
+/**
+ * merge_sort - Top-level Merge Sort implementation
+ * @array: The array to be sorted
+ * @size: Number of elements in the array
+ */
+void merge_sort(int *array, size_t size)
+{
+    int *temp;
+
+    if (!array || size < 2)
+        return;
+
+    /* Allocate the temporary array buffer just once */
+    temp = malloc(sizeof(int) * size);
+    if (!temp)
+        return;
+
+    merge_sort_recursion(array, temp, 0, size - 1);
+
+    free(temp);
+}
+
+/**
+ * selection_sort - Sorts an array of integers in ascending order
+ * @array: The array to be sorted
+ * @size: Number of elements in the array
+ */
+void selection_sort(int *array, size_t size)
+{
+    size_t i, j, min_idx;
+    int temp;
+
+    if (!array || size < 2)
+        return;
+
+    for (i = 0; i < size - 1; i++)
+    {
+        /* Find the minimum element in unsorted array */
+        min_idx = i;
+        for (j = i + 1; j < size; j++)
+        {
+            if (array[j] < array[min_idx])
+                min_idx = j;
+        }
+
+        /* Swap the found minimum element with the first element */
+        if (min_idx != i)
+        {
+            temp = array[i];
+            array[i] = array[min_idx];
+            array[min_idx] = temp;
+        }
+    }
+}
+
+
+/**
+ * bubble_sort - Sorts an array of integers in ascending order
+ * @array: The array to be sorted
+ * @size: Number of elements in the array
+ */
+void bubble_sort(int *array, size_t size)
+{
+    size_t i, j;
+    int temp;
+    int swapped;
+
+    if (!array || size < 2)
+        return;
+
+    for (i = 0; i < size - 1; i++)
+    {
+        swapped = 0; /* Optimization flag to exit early if array gets sorted */
+        for (j = 0; j < size - i - 1; j++)
+        {
+            if (array[j] > array[j + 1])
+            {
+                temp = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = temp;
+                swapped = 1;
+            }
+        }
+        /* If no two elements were swapped by inner loop, then break */
+        if (swapped == 0)
+            break;
+    }
+}
+
+
+
+
+/**
+ * insertion_sort - Sorts an array of integers in ascending order
+ * @array: The array to be sorted
+ * @size: Number of elements in the array
+ */
+void insertion_sort(int *array, size_t size)
+{
+    size_t i;
+    int key, j;
+
+    if (!array || size < 2)
+        return;
+
+    for (i = 1; i < size; i++)
+    {
+        key = array[i];
+        j = i - 1;
+
+        /* Move elements of array[0..i-1] that are greater than key */
+        /* to one position ahead of their current position */
+        while (j >= 0 && array[j] > key)
+        {
+            array[j + 1] = array[j];
+            j--;
+        }
+        array[j + 1] = key;
+    }
+}

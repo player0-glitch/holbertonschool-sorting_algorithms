@@ -1,0 +1,19 @@
+BasedOnStyle: LLVM 
+BreakBeforeBraces: GNU
+IndentWidth: 8 
+UseTab: Always 
+TabWidth: 8 
+ContinuationIndentWidth: 4 
+IndentCaseLabels: true
+AlwaysBreakAfterReturnType: None
+
+# EmptyLineAfterAccessModifier: true
+# AllowShortFunctionOnASingleLine: None
+IndentCaseBlocks: true
+AlignAfterOpenBracket: Align
+ColumnLimit: 80
+# Standard: Cpp03
+BraceWrapping:
+  AfterControlStatement: true
+  IndentBraces: false
+
